@@ -234,25 +234,29 @@ const progressBar = document.getElementById('progressBar');
 video.muted = true;
 video.play().then(() => {
   setTimeout(() => { video.muted = false; }, 800);
-}).catch(() => {
-  // If autoplay blocked, add click-to-play
-  const container = document.getElementById('videoContainer');
-  container.style.cursor = 'pointer';
-  container.addEventListener('click', function handler() {
+}).catch(() => {});
+
+// Click to pause/play
+const container = document.getElementById('videoContainer');
+container.style.cursor = 'pointer';
+container.addEventListener('click', () => {
+  if (video.paused) {
     video.play();
-    video.muted = false;
-    container.style.cursor = 'default';
-    container.removeEventListener('click', handler);
-  });
+  } else {
+    video.pause();
+  }
 });
 
-// ── Custom Progress Bar (fast start, then slows down) ──
+// ── Custom Progress Bar (logarithmic - fast start, always looks almost done) ──
 video.addEventListener('timeupdate', () => {
   if (!video.duration) return;
   const raw = video.currentTime / video.duration; // 0 to 1
-  // Ease-out curve: starts fast, slows down
-  const eased = 1 - Math.pow(1 - raw, 0.4);
-  progressBar.style.width = (eased * 100) + '%';
+  // Logarithmic curve: jumps to ~60% fast, then crawls
+  // At 10% real = ~55% bar, at 50% real = ~85% bar, at 100% real = 98% bar
+  const eased = Math.log(1 + raw * 9) / Math.log(10);
+  // Cap at 98% so it never looks fully done until the end
+  const display = raw >= 0.99 ? 100 : eased * 98;
+  progressBar.style.width = display + '%';
 });
 
 // Hide native controls completely
