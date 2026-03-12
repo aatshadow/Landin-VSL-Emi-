@@ -479,13 +479,13 @@ button { cursor: pointer; border: none; font-family: inherit; }
     Selecciono por ti <span class="orange">el producto</span> para que <span class="orange">NO pierdas tiempo</span> en buscarlo y <span class="orange">te monto la tienda</span>.
   </p>
 
-  <!-- VSL Video -->
-  <div class="vsl-wrapper animate-on-scroll" id="vslWrapper">
-    <video id="vslVideo" playsinline preload="metadata">
+  <!-- VSL Preview (locked - click opens register popup) -->
+  <div class="vsl-wrapper animate-on-scroll" id="vslWrapper" onclick="document.querySelector('.modal-overlay').classList.add('active')" style="cursor:pointer;">
+    <video id="vslVideo" playsinline preload="metadata" muted>
       <source src="Assets/vsl/vsl.mp4" type="video/mp4">
     </video>
     <div class="vsl-overlay"></div>
-    <div class="vsl-play-btn" id="vslPlayBtn" onclick="playVSL()">
+    <div class="vsl-play-btn" id="vslPlayBtn">
       <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
         <circle cx="40" cy="40" r="38" fill="rgba(255,102,0,0.85)" stroke="white" stroke-width="3"/>
         <polygon points="32,24 60,40 32,56" fill="white"/>
@@ -735,40 +735,6 @@ const observer = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
 
-// VSL - Autoplay 1 out of 3 times
-const vslVideo = document.getElementById('vslVideo');
-const vslPlayBtn = document.getElementById('vslPlayBtn');
-const shouldAutoplay = Math.random() < (1/3);
-
-if (shouldAutoplay) {
-  vslVideo.muted = true;
-  vslVideo.play().then(() => {
-    vslPlayBtn.classList.add('hidden');
-    setTimeout(() => { vslVideo.muted = false; }, 500);
-  }).catch(() => {
-    vslPlayBtn.classList.remove('hidden');
-  });
-}
-
-function playVSL() {
-  vslVideo.play();
-  vslPlayBtn.classList.add('hidden');
-}
-
-vslVideo.addEventListener('click', () => {
-  if (vslVideo.paused) {
-    vslVideo.play();
-    vslPlayBtn.classList.add('hidden');
-  } else {
-    vslVideo.pause();
-    vslPlayBtn.classList.remove('hidden');
-  }
-});
-
-vslVideo.addEventListener('ended', () => {
-  vslPlayBtn.classList.remove('hidden');
-});
-
 // ── Form submit → Supabase ──
 async function handleFormSubmit(e) {
   e.preventDefault();
@@ -793,19 +759,14 @@ async function handleFormSubmit(e) {
 
     if (error) throw error;
 
-    btn.textContent = '¡REGISTRADO!';
+    btn.textContent = '¡REGISTRADO! Redirigiendo...';
     btn.style.background = '#22c55e';
     btn.style.boxShadow = '0 0 40px rgba(34,197,94,0.4)';
     form.reset();
 
     setTimeout(() => {
-      btn.textContent = 'VER CLASE GRATIS';
-      btn.style.background = '';
-      btn.style.boxShadow = '';
-      btn.disabled = false;
-      const modal = btn.closest('.modal-overlay');
-      if (modal) modal.classList.remove('active');
-    }, 2000);
+      window.location.href = 'video-gratuito.html';
+    }, 1000);
 
   } catch (err) {
     console.error('Error guardando lead:', err);

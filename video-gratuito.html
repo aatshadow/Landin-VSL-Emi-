@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Video gratuito - FBA Academy Pro</title>
+<meta name="description" content="Clase gratuita - El metodo con el que mis alumnos consiguen facturar 10.000 en menos de 30 dias">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Montserrat', sans-serif;
+  background: #000;
+  color: #fff;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+}
+a { text-decoration: none; color: inherit; }
+img { max-width: 100%; display: block; }
+button { cursor: pointer; border: none; font-family: inherit; }
+
+:root {
+  --orange: #FF6600;
+  --orange-light: #FF935A;
+}
+
+/* ── Logo ── */
+.logo {
+  margin-bottom: 24px;
+}
+.logo .placeholder-logo {
+  width: 80px; height: 80px; margin: 0 auto;
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--orange), var(--orange-light));
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 900; font-size: 20px; color: #000;
+}
+
+/* ── Badge ── */
+.badge {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: #fff; color: #000;
+  padding: 12px 28px; border-radius: 50px;
+  font-size: 18px; font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 32px;
+}
+.badge .dot {
+  width: 16px; height: 16px; border-radius: 50%;
+  background: var(--orange);
+  animation: pulse-dot 2s infinite;
+}
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.3); }
+}
+
+/* ── Titles ── */
+.main-title {
+  font-size: clamp(24px, 4vw, 44px); font-weight: 900;
+  text-transform: uppercase; line-height: 1.2;
+  text-align: center; max-width: 900px;
+  margin-bottom: 16px;
+}
+.main-title .orange { color: var(--orange); }
+.sub-title {
+  font-size: clamp(16px, 2.5vw, 22px); font-weight: 800;
+  text-transform: uppercase; text-align: center;
+  max-width: 800px; line-height: 1.4;
+  margin-bottom: 36px;
+}
+.sub-title .orange { color: var(--orange); }
+
+/* ── Video Container ── */
+.video-container {
+  width: 100%; max-width: 750px;
+  border-radius: 12px; overflow: hidden;
+  box-shadow: 0 0 60px rgba(255,102,0,0.3);
+  position: relative;
+  background: #000;
+  margin-bottom: 8px;
+}
+.video-container video {
+  width: 100%; display: block;
+}
+
+/* ── Custom Progress Bar ── */
+.progress-bar-container {
+  width: 100%; max-width: 750px;
+  height: 5px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 0 0 12px 12px;
+  overflow: hidden;
+  margin-bottom: 32px;
+}
+.progress-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--orange), var(--orange-light));
+  border-radius: 3px;
+  transition: width 0.3s linear;
+}
+
+/* ── CTA Button ── */
+.cta-btn {
+  display: inline-block;
+  padding: 18px 52px; border-radius: 50px;
+  background: linear-gradient(180deg, var(--orange-light) 0%, var(--orange) 100%);
+  color: #fff; font-size: 20px; font-weight: 800;
+  text-transform: uppercase; letter-spacing: 2px;
+  box-shadow: 0 0 60px rgba(255,102,0,0.6);
+  transition: all 0.3s;
+  position: relative; overflow: hidden;
+  cursor: pointer;
+}
+.cta-btn::before {
+  content: ''; position: absolute; top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background: linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.15) 50%, transparent 60%);
+  transform: translateX(-100%);
+  animation: btn-shine 3s infinite;
+}
+@keyframes btn-shine {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+.cta-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 80px rgba(255,102,0,0.8);
+}
+
+/* ── Calendly Modal ── */
+.calendly-overlay {
+  display: none; position: fixed; inset: 0; z-index: 200;
+  background: rgba(0,0,0,0.85); backdrop-filter: blur(8px);
+  align-items: center; justify-content: center;
+  padding: 20px;
+}
+.calendly-overlay.active { display: flex; }
+.calendly-modal {
+  background: #fff; border-radius: 16px;
+  width: 100%; max-width: 700px; height: 85vh; max-height: 700px;
+  position: relative; overflow: hidden;
+}
+.calendly-close {
+  position: absolute; top: 12px; right: 12px; z-index: 10;
+  background: rgba(0,0,0,0.7); color: #fff; font-size: 22px;
+  width: 36px; height: 36px; display: flex; align-items: center; justify-content: center;
+  border-radius: 50%; transition: all 0.3s;
+}
+.calendly-close:hover { background: #000; }
+.calendly-modal iframe {
+  width: 100%; height: 100%; border: none;
+}
+
+/* ── Grid background effect ── */
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: -1;
+  background:
+    linear-gradient(rgba(255,102,0,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,102,0,0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  body { padding: 20px 16px; }
+  .badge { font-size: 14px; padding: 10px 20px; }
+  .cta-btn { font-size: 16px; padding: 16px 36px; }
+  .calendly-modal { height: 80vh; }
+}
+</style>
+</head>
+<body>
+
+<!-- Logo -->
+<div class="logo">
+  <div class="placeholder-logo">FBA</div>
+</div>
+
+<!-- Badge -->
+<div class="badge">
+  <span class="dot"></span>
+  CLASE GRATUITA 5 MIN
+</div>
+
+<!-- Main Title -->
+<h1 class="main-title">
+  <span class="orange">EL METODO</span> CON EL QUE MIS ALUMNOS CONSIGUEN FACTURAR <span class="orange">10.000&euro;</span> EN MENOS DE 30 DIAS DESDE 0
+</h1>
+
+<!-- Subtitle -->
+<p class="sub-title">
+  EN SOLO 5 MINUTOS ENTENDERAS COMO PUEDES <span class="orange">ESTAR VENDIENDO PASADO MANANA</span> DESPUES DE <span class="orange">VER ESTO</span>
+</p>
+
+<!-- Video -->
+<div class="video-container" id="videoContainer">
+  <video id="vslVideo" playsinline preload="auto">
+    <source src="Assets/vsl/vsl.mp4" type="video/mp4">
+  </video>
+</div>
+
+<!-- Custom Progress Bar -->
+<div class="progress-bar-container">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+
+<!-- CTA -->
+<button class="cta-btn" onclick="document.querySelector('.calendly-overlay').classList.add('active')">
+  AGENDA UNA LLAMADA
+</button>
+
+<!-- Calendly Modal -->
+<div class="calendly-overlay" onclick="if(event.target===this)this.classList.remove('active')">
+  <div class="calendly-modal">
+    <button class="calendly-close" onclick="this.closest('.calendly-overlay').classList.remove('active')">&#10005;</button>
+    <!-- REEMPLAZA la URL con tu enlace de Calendly -->
+    <iframe src="TU_CALENDLY_URL" loading="lazy"></iframe>
+  </div>
+</div>
+
+<script>
+// ── Video Autoplay ──
+const video = document.getElementById('vslVideo');
+const progressBar = document.getElementById('progressBar');
+
+// Autoplay muted (browser requirement), then unmute
+video.muted = true;
+video.play().then(() => {
+  setTimeout(() => { video.muted = false; }, 800);
+}).catch(() => {
+  // If autoplay blocked, add click-to-play
+  const container = document.getElementById('videoContainer');
+  container.style.cursor = 'pointer';
+  container.addEventListener('click', function handler() {
+    video.play();
+    video.muted = false;
+    container.style.cursor = 'default';
+    container.removeEventListener('click', handler);
+  });
+});
+
+// ── Custom Progress Bar (fast start, then slows down) ──
+video.addEventListener('timeupdate', () => {
+  if (!video.duration) return;
+  const raw = video.currentTime / video.duration; // 0 to 1
+  // Ease-out curve: starts fast, slows down
+  const eased = 1 - Math.pow(1 - raw, 0.4);
+  progressBar.style.width = (eased * 100) + '%';
+});
+
+// Hide native controls completely
+video.controls = false;
+video.removeAttribute('controls');
+</script>
+
+</body>
+</html>
