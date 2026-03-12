@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>17 Dias en Directo — FBA Academy Pro</title>
+<meta name="description" content="17 directos en YouTube. Sin filtros. Emiliano te abre las puertas de su consultora y te muestra como gestiona +65 tiendas con mas de 16M$ en inventario real.">
+<meta property="og:title" content="Descubre la realidad de un vendedor de Amazon en 17 dias">
+<meta property="og:description" content="17 directos en vivo por YouTube. Sin filtros. Sin guion. Emiliano te muestra como gestiona +65 tiendas de Amazon FBA.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.fbaacademypro.com/directo17">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ── Reset ── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: #0A0A0A; color: #fff;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+a { text-decoration: none; color: inherit; }
+img { max-width: 100%; display: block; }
+button { cursor: pointer; border: none; font-family: inherit; }
+
+:root {
+  --orange: #FF6B00;
+  --orange-light: #FF8C38;
+  --orange-glow: rgba(255,107,0,0.3);
+  --bg: #0A0A0A;
+  --bg-card: #111111;
+  --bg-card-hover: #161616;
+  --gray: #888;
+  --gray-light: #bbb;
+  --max-w: 1000px;
+}
+
+/* ── Grain overlay ── */
+body::after {
+  content: '';
+  position: fixed; inset: 0; z-index: 9999;
+  pointer-events: none;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+
+/* ── Utility ── */
+.container { max-width: var(--max-w); margin: 0 auto; padding: 0 20px; }
+.orange { color: var(--orange); }
+.section { padding: 80px 0; }
+
+/* ── Page transitions ── */
+#page-optin, #page-thankyou {
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+#page-thankyou {
+  display: none;
+}
+#page-thankyou.active {
+  display: block;
+  animation: fadeUp 0.6s ease forwards;
+}
+#page-optin.hidden {
+  display: none;
+}
+
+/* ── Animations ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.anim {
+  opacity: 0; transform: translateY(25px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.anim.visible { opacity: 1; transform: translateY(0); }
+@keyframes forceShow { to { opacity: 1; transform: none; } }
+.anim { animation: forceShow 0s 3s forwards; }
+
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.6;transform:scale(1.3)} }
+@keyframes shine {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+@keyframes float {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+@keyframes checkDraw {
+  0% { stroke-dashoffset: 60; }
+  100% { stroke-dashoffset: 0; }
+}
+
+/* ── Header ── */
+.header {
+  display: flex; flex-direction: column; align-items: center;
+  padding: 30px 20px 0;
+  gap: 16px;
+}
+.header-logo img {
+  height: 60px; width: auto;
+}
+.badge {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: rgba(255,107,0,0.1);
+  border: 1px solid rgba(255,107,0,0.25);
+  padding: 10px 22px; border-radius: 50px;
+  font-family: 'Sora', sans-serif;
+  font-size: 14px; font-weight: 600;
+  color: var(--orange-light);
+  letter-spacing: 0.5px;
+}
+.badge .dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: #e53e3e;
+  animation: pulse 2s infinite;
+}
+
+/* ── Hero ── */
+.hero {
+  text-align: center;
+  padding: 50px 20px 40px;
+}
+.hero h1 {
+  font-family: 'Sora', sans-serif;
+  font-size: clamp(28px, 5vw, 52px);
+  font-weight: 800; line-height: 1.15;
+  max-width: 850px; margin: 0 auto 20px;
+  letter-spacing: -1px;
+}
+.hero-sub {
+  font-size: clamp(15px, 2.5vw, 18px);
+  color: var(--gray-light); line-height: 1.7;
+  max-width: 680px; margin: 0 auto 36px;
+}
+
+/* ── Video placeholder ── */
+.video-box {
+  max-width: 700px; width: 100%; margin: 0 auto 40px;
+  aspect-ratio: 16/9;
+  background: linear-gradient(135deg, #111 0%, #1a1a1a 100%);
+  border-radius: 16px; overflow: hidden;
+  position: relative;
+  border: 1px solid rgba(255,107,0,0.15);
+  box-shadow: 0 0 60px rgba(255,107,0,0.1);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: box-shadow 0.3s;
+}
+.video-box:hover { box-shadow: 0 0 80px rgba(255,107,0,0.2); }
+.video-box .play-icon {
+  width: 64px; height: 64px;
+  background: var(--orange);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  transition: transform 0.3s;
+}
+.video-box:hover .play-icon { transform: scale(1.1); }
+.play-icon svg { width: 24px; height: 24px; margin-left: 3px; }
+
+/* ── Countdown ── */
+.countdown-wrap {
+  max-width: 500px; margin: 0 auto 36px;
+  text-align: center;
+}
+.countdown-label {
+  font-family: 'Sora', sans-serif;
+  font-size: 13px; font-weight: 600;
+  color: var(--gray); text-transform: uppercase;
+  letter-spacing: 2px; margin-bottom: 14px;
+}
+.countdown {
+  display: flex; justify-content: center; gap: 16px;
+}
+.countdown-unit {
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+}
+.countdown-num {
+  font-family: 'Sora', sans-serif;
+  font-size: clamp(32px, 5vw, 48px);
+  font-weight: 800; color: var(--orange);
+  line-height: 1;
+  min-width: 60px;
+}
+.countdown-txt {
+  font-size: 11px; color: var(--gray);
+  text-transform: uppercase; letter-spacing: 1px;
+}
+.countdown-sep {
+  font-family: 'Sora', sans-serif;
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 700; color: rgba(255,255,255,0.15);
+  line-height: 1; padding-top: 4px;
+}
+
+/* ── Form ── */
+.form-section {
+  max-width: 440px; width: 100%; margin: 0 auto;
+  padding: 0 20px;
+}
+.form-card {
+  background: var(--bg-card);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 16px;
+  padding: 32px 28px;
+}
+.form-card .form-title {
+  font-family: 'Sora', sans-serif;
+  font-size: 18px; font-weight: 700;
+  text-align: center; margin-bottom: 24px;
+}
+.form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+.form-group label {
+  font-size: 12px; font-weight: 600; color: var(--gray);
+  text-transform: uppercase; letter-spacing: 0.5px;
+}
+.form-group input,
+.form-group select {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 10px; padding: 14px 16px;
+  font-size: 15px; color: #fff;
+  font-family: 'DM Sans', sans-serif;
+  outline: none; transition: all 0.3s;
+}
+.form-group input::placeholder { color: #444; }
+.form-group input:focus,
+.form-group select:focus {
+  border-color: var(--orange);
+  background: rgba(255,107,0,0.04);
+}
+.form-group select { -webkit-appearance: none; appearance: none; cursor: pointer; }
+.form-group select option { background: #111; color: #fff; }
+.form-row { display: flex; gap: 10px; }
+.form-row .form-group.prefix { flex: 0 0 95px; }
+.form-row .form-group.phone { flex: 1; }
+.form-submit {
+  width: 100%; padding: 16px;
+  border-radius: 50px; margin-top: 8px;
+  background: linear-gradient(180deg, var(--orange-light), var(--orange));
+  color: #fff; font-family: 'Sora', sans-serif;
+  font-size: 15px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 1px;
+  box-shadow: 0 0 40px var(--orange-glow);
+  transition: all 0.3s;
+  position: relative; overflow: hidden;
+}
+.form-submit::before {
+  content:''; position: absolute; top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background: linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.12) 50%, transparent 60%);
+  transform: translateX(-100%);
+  animation: shine 3s infinite;
+}
+.form-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 60px rgba(255,107,0,0.5);
+}
+.form-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+.form-micro {
+  text-align: center; font-size: 12px; color: var(--gray);
+  margin-top: 14px; line-height: 1.5;
+}
+
+/* ── Divider ── */
+.divider {
+  height: 1px; width: 100%;
+  background: linear-gradient(to right, transparent, rgba(255,107,0,0.2) 30%, rgba(255,107,0,0.2) 70%, transparent);
+  margin: 0;
+}
+
+/* ── 17 Days Content ── */
+.content-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px; max-width: var(--max-w); margin: 0 auto;
+  padding: 0 20px;
+}
+.content-card {
+  background: var(--bg-card);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 14px; padding: 24px;
+  transition: all 0.3s;
+}
+.content-card:hover {
+  background: var(--bg-card-hover);
+  border-color: rgba(255,107,0,0.15);
+  transform: translateY(-2px);
+}
+.content-card .card-icon {
+  font-size: 28px; margin-bottom: 12px;
+}
+.content-card h3 {
+  font-family: 'Sora', sans-serif;
+  font-size: 16px; font-weight: 700;
+  margin-bottom: 8px; line-height: 1.3;
+}
+.content-card p {
+  font-size: 14px; color: var(--gray-light); line-height: 1.6;
+}
+.section-title {
+  font-family: 'Sora', sans-serif;
+  font-size: clamp(24px, 4vw, 38px);
+  font-weight: 800; text-align: center;
+  margin-bottom: 12px;
+}
+.section-sub {
+  text-align: center; color: var(--gray-light);
+  font-size: 15px; margin-bottom: 40px;
+  max-width: 600px; margin-left: auto; margin-right: auto;
+}
+
+/* ── Comparison ── */
+.compare-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px; max-width: var(--max-w); margin: 0 auto;
+  padding: 0 20px;
+}
+.compare-card {
+  background: var(--bg-card);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 14px; padding: 24px;
+  transition: all 0.3s;
+}
+.compare-card:hover {
+  background: var(--bg-card-hover);
+  border-color: rgba(255,107,0,0.15);
+}
+.compare-bad {
+  font-size: 14px; color: #666;
+  margin-bottom: 14px; padding-bottom: 14px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  line-height: 1.5;
+}
+.compare-bad::before { content: ''; margin-right: 8px; }
+.compare-good {
+  font-size: 14px; color: var(--orange-light);
+  line-height: 1.5;
+}
+.compare-good::before { content: ''; margin-right: 8px; }
+
+/* ── Bio ── */
+.bio-section {
+  display: flex; align-items: center; gap: 40px;
+  max-width: var(--max-w); margin: 0 auto;
+  padding: 0 20px;
+}
+.bio-photo {
+  flex: 0 0 200px; width: 200px; height: 200px;
+  border-radius: 16px; overflow: hidden;
+  position: relative;
+}
+.bio-photo img {
+  width: 100%; height: 100%; object-fit: cover;
+}
+.bio-photo::after {
+  content: '';
+  position: absolute; inset: 0;
+  border-radius: 16px;
+  border: 2px solid rgba(255,107,0,0.2);
+  pointer-events: none;
+}
+.bio-text h3 {
+  font-family: 'Sora', sans-serif;
+  font-size: 22px; font-weight: 800;
+  margin-bottom: 12px;
+}
+.bio-text p {
+  font-size: 15px; color: var(--gray-light);
+  line-height: 1.7;
+}
+
+/* ── Second CTA ── */
+.cta-bottom {
+  text-align: center; padding: 60px 20px 40px;
+}
+.cta-bottom h2 {
+  font-family: 'Sora', sans-serif;
+  font-size: clamp(22px, 4vw, 34px);
+  font-weight: 800; margin-bottom: 20px;
+}
+.cta-scroll-btn {
+  display: inline-block;
+  padding: 16px 44px; border-radius: 50px;
+  background: linear-gradient(180deg, var(--orange-light), var(--orange));
+  color: #fff; font-family: 'Sora', sans-serif;
+  font-size: 16px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 1px;
+  box-shadow: 0 0 50px var(--orange-glow);
+  transition: all 0.3s;
+  position: relative; overflow: hidden;
+}
+.cta-scroll-btn::before {
+  content:''; position: absolute; top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background: linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.12) 50%, transparent 60%);
+  transform: translateX(-100%);
+  animation: shine 3s infinite;
+}
+.cta-scroll-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 70px rgba(255,107,0,0.5);
+}
+
+/* ── Footer ── */
+.footer {
+  text-align: center; padding: 30px 20px;
+  font-size: 13px; color: #444;
+  border-top: 1px solid rgba(255,255,255,0.04);
+}
+
+/* ═══ THANK YOU PAGE ═══ */
+.ty-container {
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center; padding: 40px 20px;
+}
+.ty-check {
+  width: 80px; height: 80px; margin-bottom: 24px;
+  background: rgba(34,197,94,0.1);
+  border: 3px solid #22c55e;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+}
+.ty-check svg {
+  stroke-dasharray: 60;
+  stroke-dashoffset: 60;
+  animation: checkDraw 0.6s 0.3s ease forwards;
+}
+.ty-title {
+  font-family: 'Sora', sans-serif;
+  font-size: clamp(28px, 5vw, 44px);
+  font-weight: 800; margin-bottom: 16px;
+}
+.ty-text {
+  font-size: 16px; color: var(--gray-light);
+  line-height: 1.7; max-width: 500px;
+  margin-bottom: 32px;
+}
+.ty-whatsapp {
+  display: inline-flex; align-items: center; gap: 12px;
+  padding: 18px 40px; border-radius: 50px;
+  background: #25D366; color: #fff;
+  font-family: 'Sora', sans-serif;
+  font-size: 17px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 1px;
+  box-shadow: 0 0 40px rgba(37,211,102,0.3);
+  transition: all 0.3s;
+  animation: float 3s ease-in-out infinite;
+}
+.ty-whatsapp:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 0 60px rgba(37,211,102,0.5);
+}
+.ty-whatsapp svg { width: 24px; height: 24px; fill: #fff; }
+.ty-whatsapp-sub {
+  font-size: 13px; color: var(--gray);
+  max-width: 420px; line-height: 1.6;
+  margin-top: 16px; margin-bottom: 36px;
+}
+.ty-info-card {
+  background: var(--bg-card);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 14px; padding: 24px 32px;
+  display: inline-flex; align-items: center; gap: 14px;
+  font-size: 15px; font-weight: 600;
+}
+.ty-info-card .cal-icon { font-size: 24px; }
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .section { padding: 50px 0; }
+  .bio-section {
+    flex-direction: column; text-align: center;
+  }
+  .bio-photo { flex: none; width: 160px; height: 160px; }
+  .countdown { gap: 10px; }
+  .countdown-num { min-width: 48px; }
+  .form-row { flex-direction: column; gap: 0; }
+  .form-row .form-group.prefix { flex: auto; }
+  .form-card { padding: 24px 20px; }
+  .content-grid, .compare-grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════ -->
+<!-- PAGE 1: OPT-IN                 -->
+<!-- ═══════════════════════════════ -->
+<div id="page-optin">
+
+<!-- Header -->
+<header class="header anim">
+  <a href="https://www.fbaacademypro.com">
+    <div class="header-logo">
+      <img src="Assets/logo.jpeg" alt="FBA Academy Pro">
+    </div>
+  </a>
+  <div class="badge">
+    <span class="dot"></span>
+    EN VIVO — Empieza el 16 de marzo
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <h1 class="anim">Descubre la realidad de un vendedor de Amazon en <span class="orange">17 dias</span></h1>
+  <p class="hero-sub anim">17 directos en YouTube. Sin filtros. Sin guion. Emiliano te abre las puertas de su consultora y te muestra como gestiona <strong class="orange">+65 tiendas</strong> con mas de <strong class="orange">16M$</strong> en inventario real.</p>
+
+  <!-- Video placeholder -->
+  <div class="video-box anim">
+    <div class="play-icon">
+      <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="8,5 20,12 8,19"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Countdown -->
+  <div class="countdown-wrap anim">
+    <div class="countdown-label">Los directos empiezan en</div>
+    <div class="countdown" id="countdown">
+      <div class="countdown-unit">
+        <span class="countdown-num" id="cd-days">--</span>
+        <span class="countdown-txt">Dias</span>
+      </div>
+      <span class="countdown-sep">:</span>
+      <div class="countdown-unit">
+        <span class="countdown-num" id="cd-hours">--</span>
+        <span class="countdown-txt">Horas</span>
+      </div>
+      <span class="countdown-sep">:</span>
+      <div class="countdown-unit">
+        <span class="countdown-num" id="cd-mins">--</span>
+        <span class="countdown-txt">Min</span>
+      </div>
+      <span class="countdown-sep">:</span>
+      <div class="countdown-unit">
+        <span class="countdown-num" id="cd-secs">--</span>
+        <span class="countdown-txt">Seg</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Form -->
+  <div class="form-section anim" id="formulario">
+    <div class="form-card">
+      <div class="form-title">Reserva tu plaza gratis</div>
+      <form id="optinForm" onsubmit="return handleOptinSubmit(event)">
+        <div class="form-group">
+          <label>Nombre</label>
+          <input type="text" name="name" placeholder="Tu nombre" required>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" name="email" placeholder="Tu mejor correo" required>
+        </div>
+        <div class="form-row">
+          <div class="form-group prefix">
+            <label>Prefijo</label>
+            <select name="prefix">
+              <option value="+34">+34</option>
+              <option value="+351">+351</option>
+              <option value="+33">+33</option>
+              <option value="+54">+54</option>
+              <option value="+591">+591</option>
+              <option value="+55">+55</option>
+              <option value="+56">+56</option>
+              <option value="+57">+57</option>
+              <option value="+506">+506</option>
+              <option value="+593">+593</option>
+              <option value="+503">+503</option>
+              <option value="+502">+502</option>
+              <option value="+52">+52</option>
+              <option value="+507">+507</option>
+              <option value="+595">+595</option>
+              <option value="+51">+51</option>
+              <option value="+598">+598</option>
+              <option value="+58">+58</option>
+            </select>
+          </div>
+          <div class="form-group phone">
+            <label>Telefono</label>
+            <input type="tel" name="phone" placeholder="Tu telefono" required pattern="[0-9()+\-\s]+">
+          </div>
+        </div>
+        <button type="submit" class="form-submit" id="optinBtn">QUIERO ACCEDER GRATIS A LOS 17 DIAS</button>
+      </form>
+      <p class="form-micro">100% gratis. Recibiras recordatorios diarios por email de cada sesion.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- What you'll see -->
+<section class="section">
+  <h2 class="section-title anim">Que vas a ver en los <span class="orange">17 dias</span></h2>
+  <p class="section-sub anim">Cada dia un directo nuevo en YouTube. Sin editar. Sin filtros. El negocio real al descubierto.</p>
+  <div class="content-grid">
+    <div class="content-card anim">
+      <div class="card-icon">&#128269;</div>
+      <h3>Busqueda de producto real en directo</h3>
+      <p>Ve exactamente como Emiliano y su equipo seleccionan productos ganadores para sus tiendas.</p>
+    </div>
+    <div class="content-card anim">
+      <div class="card-icon">&#128230;</div>
+      <h3>Tiendas para inversores de 55.000&euro;+</h3>
+      <p>Como se montan, gestionan y escalan tiendas para personas que invierten cantidades reales.</p>
+    </div>
+    <div class="content-card anim">
+      <div class="card-icon">&#127464;&#127475;</div>
+      <h3>Operaciones con proveedores en China</h3>
+      <p>Negociacion, calidad, pagos y logistica con fabricantes reales. Sin teoria, solo practica.</p>
+    </div>
+    <div class="content-card anim">
+      <div class="card-icon">&#128202;</div>
+      <h3>Gestion de inventario y logistica</h3>
+      <p>El dia a dia real de gestionar +65 tiendas de Amazon FBA con millones en inventario.</p>
+    </div>
+    <div class="content-card anim">
+      <div class="card-icon">&#128172;</div>
+      <h3>Conversaciones con inversores reales</h3>
+      <p>Entraran inversores que han confiado su capital. Sin actores. Personas reales.</p>
+    </div>
+    <div class="content-card anim">
+      <div class="card-icon">&#128640;</div>
+      <h3>Lanzamiento de la nueva consultora</h3>
+      <p>El dia 17 se presenta la nueva estructura de la consultora. Lo veras antes que nadie.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- Why different -->
+<section class="section">
+  <h2 class="section-title anim">Por que esto es <span class="orange">diferente</span></h2>
+  <p class="section-sub anim">Nadie en Espana ha hecho esto antes. No es un curso. Es documentacion en directo.</p>
+  <div class="compare-grid">
+    <div class="compare-card anim">
+      <div class="compare-bad">Cursos grabados que repiten teoria generica</div>
+      <div class="compare-good">Directos en vivo sin guion donde ves el negocio real</div>
+    </div>
+    <div class="compare-card anim">
+      <div class="compare-bad">Gurus que ensenan desde un PowerPoint</div>
+      <div class="compare-good">Emiliano gestionando tiendas con inversores reales delante de ti</div>
+    </div>
+    <div class="compare-card anim">
+      <div class="compare-bad">Promesas de "hazte rico rapido"</div>
+      <div class="compare-good">5.000+ alumnos, 65 tiendas, 16M$ en inventario — resultados reales</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- Bio -->
+<section class="section">
+  <h2 class="section-title anim">Sobre <span class="orange">Emiliano</span></h2>
+  <div style="height:24px"></div>
+  <div class="bio-section anim">
+    <div class="bio-photo">
+      <img src="Assets/fotos%20emi/emi.jpg" alt="Emiliano de la Sierra">
+    </div>
+    <div class="bio-text">
+      <h3>Emiliano De la Sierra</h3>
+      <p>Fundador de <strong class="orange">FBA Academy Pro</strong> desde 2019. Ha formado a mas de <strong>5.000 personas</strong> en Amazon FBA. Gestiona <strong>65 tiendas simultaneamente</strong> con un equipo de mentores expertos y mas de <strong class="orange">16 millones de dolares</strong> en inventario real. Ahora documenta todo en directo durante 17 dias.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Second CTA -->
+<div class="cta-bottom anim">
+  <h2>No te quedes fuera de los <span class="orange">17 dias</span></h2>
+  <a href="#formulario" class="cta-scroll-btn">RESERVA TU PLAZA GRATIS</a>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+  &copy; 2026 FBA Academy Pro — fbaacademypro.com
+</footer>
+
+</div><!-- /page-optin -->
+
+
+<!-- ═══════════════════════════════ -->
+<!-- PAGE 2: THANK YOU               -->
+<!-- ═══════════════════════════════ -->
+<div id="page-thankyou">
+<div class="ty-container">
+
+  <!-- Check icon -->
+  <div class="ty-check">
+    <svg width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="#22c55e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="8,18 16,26 28,10"/>
+    </svg>
+  </div>
+
+  <h1 class="ty-title">Estas dentro!</h1>
+  <p class="ty-text">Ya tienes tu plaza reservada para los <strong>17 dias en directo</strong> con Emiliano. Recibiras un email de recordatorio antes de cada sesion.</p>
+
+  <!-- WhatsApp CTA -->
+  <a href="https://chat.whatsapp.com/PLACEHOLDER" target="_blank" class="ty-whatsapp">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.125.553 4.12 1.52 5.855L0 24l6.335-1.652A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.82a9.78 9.78 0 01-5.283-1.545l-.378-.226-3.93 1.025 1.05-3.83-.25-.394A9.78 9.78 0 012.18 12c0-5.422 4.398-9.82 9.82-9.82 5.422 0 9.82 4.398 9.82 9.82 0 5.422-4.398 9.82-9.82 9.82z"/></svg>
+    UNETE A LA COMUNIDAD
+  </a>
+  <p class="ty-whatsapp-sub">Unete al grupo exclusivo donde compartiremos material extra, resumenes diarios y podras hablar directamente con el equipo.</p>
+
+  <!-- Info card -->
+  <div class="ty-info-card">
+    <span class="cal-icon">&#128197;</span>
+    <span>Primer directo: <strong class="orange">Lunes 16 de marzo</strong> — YouTube</span>
+  </div>
+
+</div>
+</div><!-- /page-thankyou -->
+
+
+<!-- ═══ Supabase SDK ═══ -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+
+<script>
+// ── Supabase ──
+const SUPABASE_URL = 'https://jxesxtptbudlqnquppgt.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp4ZXN4dHB0YnVkbHFucXVwcGd0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMzMzc1MzAsImV4cCI6MjA4ODkxMzUzMH0.PI30XeQJEKbtn00GSyBO3enLaXtFSpxXpj7zMf96dG8';
+
+let supabaseClient = null;
+try {
+  supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+} catch(e) { console.warn('Supabase not loaded:', e); }
+
+// ── Scroll animations ──
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.anim').forEach(el => obs.observe(el));
+
+// ── Countdown to March 16, 2026 10:00 CET ──
+const target = new Date('2026-03-16T10:00:00+01:00').getTime();
+function updateCountdown() {
+  const now = Date.now();
+  const diff = Math.max(0, target - now);
+  const d = Math.floor(diff / 86400000);
+  const h = Math.floor((diff % 86400000) / 3600000);
+  const m = Math.floor((diff % 3600000) / 60000);
+  const s = Math.floor((diff % 60000) / 1000);
+  document.getElementById('cd-days').textContent = String(d).padStart(2,'0');
+  document.getElementById('cd-hours').textContent = String(h).padStart(2,'0');
+  document.getElementById('cd-mins').textContent = String(m).padStart(2,'0');
+  document.getElementById('cd-secs').textContent = String(s).padStart(2,'0');
+}
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+// ── Form submit ──
+async function handleOptinSubmit(e) {
+  e.preventDefault();
+  const form = e.target;
+  const btn = document.getElementById('optinBtn');
+  const fd = new FormData(form);
+
+  btn.textContent = 'Enviando...';
+  btn.disabled = true;
+
+  const data = {
+    name: fd.get('name').trim(),
+    phone_prefix: fd.get('prefix'),
+    phone: fd.get('phone').trim(),
+    email: fd.get('email').trim().toLowerCase(),
+    source: 'directo17'
+  };
+
+  try {
+    if (supabaseClient) {
+      const { error } = await supabaseClient.from('leads').insert([data]);
+      if (error) throw error;
+    }
+  } catch (err) {
+    console.error('Supabase error:', err);
+  }
+
+  // Show thank you page regardless
+  document.getElementById('page-optin').classList.add('hidden');
+  const ty = document.getElementById('page-thankyou');
+  ty.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'instant' });
+
+  return false;
+}
+</script>
+
+</body>
+</html>
