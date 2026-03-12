@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FBA Academy Pro</title>
+<meta name="description" content="APRENDE A CREAR UNA TIENDA EN AMAZON CON LA QUE ESTÉS VENDIENDO EN 72H SIN EXPERIENCIA">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ── Reset ── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Montserrat', sans-serif; background: #000; color: #fff; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+a { text-decoration: none; color: inherit; }
+img { max-width: 100%; display: block; }
+button { cursor: pointer; border: none; font-family: inherit; }
+
+/* ── Variables ── */
+:root {
+  --orange: #FF6600;
+  --orange-light: #FF935A;
+  --black: #000000;
+  --white: #FFFFFF;
+  --gray: #999999;
+  --max-width: 1140px;
+}
+
+/* ── Header / Navbar ── */
+.header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; justify-content: center;
+  padding: 20px 40px;
+}
+.header-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  width: 100%; max-width: var(--max-width);
+  padding: 10px 20px;
+  border-radius: 50px;
+  background: rgba(0,0,0,0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,102,0,0.15);
+}
+.header-logo img {
+  width: 60px; height: 60px; border-radius: 50%;
+  object-fit: cover;
+}
+.header-logo .placeholder-logo {
+  width: 60px; height: 60px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--orange), var(--orange-light));
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 900; font-size: 14px; color: #000;
+}
+.header-nav {
+  display: flex; align-items: center; gap: 8px;
+}
+.header-nav a {
+  padding: 8px 18px; border-radius: 50px;
+  font-size: 14px; font-weight: 600; color: #fff;
+  transition: all 0.3s;
+}
+.header-nav a:hover { color: var(--orange); }
+.header-cta {
+  padding: 10px 25px; border-radius: 50px;
+  background: var(--white); color: #000;
+  font-size: 14px; font-weight: 700;
+  box-shadow: 0 0 15px rgba(255,255,255,0.2);
+  transition: all 0.3s;
+}
+.header-cta:hover { box-shadow: 0 0 25px rgba(255,255,255,0.35); transform: translateY(-1px); }
+.hamburger {
+  display: none; background: none; color: #fff; font-size: 28px;
+  width: 44px; height: 44px; align-items: center; justify-content: center;
+}
+
+/* ── Hero Section ── */
+.hero {
+  min-height: 100vh; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; text-align: center;
+  padding: 120px 20px 80px;
+  position: relative;
+  background: #000;
+}
+.hero > * { position: relative; z-index: 1; }
+.hero h1 {
+  font-size: clamp(32px, 5vw, 56px); font-weight: 900;
+  text-transform: uppercase; line-height: 1.15;
+  max-width: 900px; letter-spacing: -1px;
+  text-shadow: 0 0 15px rgba(255,102,0,0.4);
+}
+.hero h1 .orange { color: var(--orange); }
+.hero-sub {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: clamp(16px, 2.5vw, 20px); font-weight: 600;
+  color: #ccc; margin-top: 24px; max-width: 700px; line-height: 1.5;
+}
+.hero-sub .orange { color: var(--orange); }
+
+/* ── VSL Video Player ── */
+.vsl-wrapper {
+  margin-top: 40px; position: relative;
+  max-width: 700px; width: 100%;
+  border-radius: 12px; overflow: hidden;
+  box-shadow: 0 0 70px var(--orange);
+  transition: transform 0.3s, box-shadow 0.3s;
+  background: #000;
+}
+.vsl-wrapper:hover { transform: scale(1.02); box-shadow: 0 0 90px var(--orange); }
+.vsl-wrapper video {
+  width: 100%; display: block;
+  border-radius: 12px;
+}
+/* Custom overlay to hide native controls time */
+.vsl-overlay {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 50px;
+  background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+.vsl-play-btn {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(0,0,0,0.4);
+  z-index: 3; cursor: pointer;
+  transition: background 0.3s;
+}
+.vsl-play-btn:hover { background: rgba(0,0,0,0.2); }
+.vsl-play-btn svg {
+  width: 72px; height: 72px;
+  filter: drop-shadow(0 0 20px rgba(255,102,0,0.6));
+  transition: transform 0.3s;
+}
+.vsl-play-btn:hover svg { transform: scale(1.1); }
+.vsl-play-btn.hidden { display: none; }
+
+/* ── CTA below preview ── */
+.hero-cta-text {
+  margin-top: 30px; font-family: 'Impact', 'Montserrat', sans-serif;
+  font-size: clamp(24px, 4vw, 48px); font-weight: 500;
+  text-transform: uppercase; line-height: 1.2;
+}
+.hero-cta-text .orange { color: var(--orange); }
+
+/* ── CTA Button ── */
+.cta-btn {
+  display: inline-block; margin-top: 24px;
+  padding: 16px 48px; border-radius: 50px;
+  background: linear-gradient(180deg, var(--orange-light) 0%, var(--orange) 100%);
+  color: #fff; font-size: 18px; font-weight: 800;
+  text-transform: uppercase; letter-spacing: 1px;
+  box-shadow: 0 0 60px rgba(255,102,0,0.6);
+  transition: all 0.3s;
+  position: relative; overflow: hidden;
+}
+.cta-btn::before {
+  content: ''; position: absolute; top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background: linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.15) 50%, transparent 60%);
+  transform: translateX(-100%);
+  animation: btn-shine 3s infinite;
+}
+@keyframes btn-shine {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+.cta-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 80px rgba(255,102,0,0.8);
+}
+
+/* ── Divider ── */
+.divider {
+  height: 1px; width: 100%;
+  background: linear-gradient(to right, transparent, var(--orange) 20%, var(--orange) 80%, transparent);
+}
+
+/* ── Bio Section ── */
+.bio {
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: center; padding: 80px 20px;
+  background: #000;
+  position: relative;
+}
+.bio > * { position: relative; z-index: 1; }
+.bio-card {
+  max-width: 800px; width: 100%;
+  background: rgba(255,102,0,0.03);
+  backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255,102,0,0.15);
+  border-radius: 20px; padding: 30px;
+  box-shadow: 0 0 35px rgba(255,83,0,0.35) inset;
+  text-align: center;
+}
+.bio-card h2 {
+  font-size: clamp(28px, 4vw, 44px); font-weight: 900;
+  text-transform: uppercase; line-height: 1.15;
+  margin-bottom: 20px;
+}
+.bio-card h2 .orange { color: var(--orange); }
+
+/* ── Emi Photo with gradient fade ── */
+.bio-photo {
+  width: 80%; max-width: 500px; margin: 0 auto 24px;
+  position: relative;
+}
+.bio-photo img {
+  width: 100%; display: block;
+  border-radius: 12px;
+}
+.bio-photo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  background:
+    linear-gradient(to bottom, transparent 50%, #000 100%),
+    linear-gradient(to right, #000 0%, transparent 15%, transparent 85%, #000 100%),
+    linear-gradient(to bottom, #000 0%, transparent 10%);
+  pointer-events: none;
+}
+
+.bio-text {
+  max-width: 600px; margin: 0 auto;
+  font-size: 15px; line-height: 1.8; color: #ccc;
+  text-shadow: 0 0 2px #000;
+}
+.bio-text .orange { color: var(--orange); }
+.bio-text strong { font-weight: 700; }
+
+/* ── Testimonials Section ── */
+.testimonials {
+  padding: 80px 20px; text-align: center;
+  background: #000;
+}
+.testimonials h3 {
+  font-size: clamp(28px, 4vw, 44px); font-weight: 900;
+  text-transform: uppercase;
+}
+.testimonials .subtitle {
+  font-family: 'Impact', 'Montserrat', sans-serif;
+  font-size: clamp(40px, 5vw, 60px); font-weight: 500;
+  text-transform: uppercase; color: var(--orange);
+  margin-top: -8px; margin-bottom: 30px;
+}
+
+/* ── Carousel ── */
+.carousel-container {
+  width: 70%; max-width: 900px; margin: 0 auto;
+  position: relative; overflow: hidden;
+}
+.carousel-container::before,
+.carousel-container::after {
+  content: ''; position: absolute; top: 0; bottom: 0; width: 100px; z-index: 2;
+  pointer-events: none;
+}
+.carousel-container::before {
+  left: 0;
+  background: linear-gradient(to right, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 50%, transparent 100%);
+}
+.carousel-container::after {
+  right: 0;
+  background: linear-gradient(to left, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 50%, transparent 100%);
+}
+.carousel-track {
+  display: flex; gap: 20px;
+  animation: scroll-left 60s linear infinite;
+}
+.carousel-track.reverse { animation: scroll-right 60s linear infinite; }
+@keyframes scroll-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@keyframes scroll-right {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+.carousel-track:hover { animation-play-state: paused; }
+.carousel-slide {
+  flex-shrink: 0; width: 280px; border-radius: 10px; overflow: hidden;
+}
+.carousel-slide img {
+  width: 100%; height: auto; display: block;
+  border-radius: 10px;
+}
+
+/* ── Form Section ── */
+.form-section {
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: center; padding: 80px 20px 40px;
+  background: #000;
+  position: relative;
+}
+.form-section > * { position: relative; z-index: 1; }
+.form-card {
+  max-width: 600px; width: 100%;
+  border: 3px solid rgba(255,102,0,0.3); border-top: none;
+  border-radius: 20px; padding: 40px 30px;
+  background: linear-gradient(180deg, rgba(255,102,0,0) 53%, rgba(255,102,0,0.15) 100%);
+  backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);
+  box-shadow: 0 -18px 18px rgba(255,83,0,0.35) inset;
+}
+.form-card h3 {
+  text-align: center; font-family: 'Impact', 'Montserrat', sans-serif;
+  font-size: clamp(24px, 4vw, 40px); font-weight: 500;
+  text-transform: uppercase; margin-bottom: 24px;
+}
+.form-card h3 .orange { color: var(--orange); }
+
+/* ── Native Form ── */
+.native-form { display: flex; flex-direction: column; gap: 18px; max-width: 420px; margin: 0 auto; }
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+.form-group label {
+  font-size: 12px; font-weight: 600; color: #999; text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.form-group input,
+.form-group select {
+  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 10px; padding: 14px 16px; font-size: 15px; color: #fff;
+  font-family: inherit; outline: none; transition: all 0.3s;
+}
+.form-group input::placeholder { color: #555; }
+.form-group input:focus,
+.form-group select:focus { border-color: var(--orange); background: rgba(255,102,0,0.05); }
+.form-group select { -webkit-appearance: none; appearance: none; cursor: pointer; }
+.form-group select option { background: #111; color: #fff; }
+.form-row { display: flex; gap: 12px; }
+.form-row .form-group.prefix { flex: 0 0 100px; }
+.form-submit-btn {
+  width: 100%; padding: 16px; border-radius: 50px;
+  background: linear-gradient(180deg, var(--orange-light) 0%, var(--orange) 100%);
+  color: #fff; font-size: 17px; font-weight: 800; text-transform: uppercase;
+  letter-spacing: 1px; margin-top: 8px;
+  box-shadow: 0 0 40px rgba(255,102,0,0.4);
+  transition: all 0.3s; position: relative; overflow: hidden;
+}
+.form-submit-btn::before {
+  content: ''; position: absolute; top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background: linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.15) 50%, transparent 60%);
+  transform: translateX(-100%); animation: btn-shine 3s infinite;
+}
+.form-submit-btn:hover {
+  transform: translateY(-2px); box-shadow: 0 0 60px rgba(255,102,0,0.6);
+}
+
+/* ── Popup/Modal ── */
+.modal-overlay {
+  display: none; position: fixed; inset: 0; z-index: 200;
+  background: rgba(0,0,0,0.85); backdrop-filter: blur(8px);
+  align-items: center; justify-content: center;
+  padding: 20px;
+}
+.modal-overlay.active { display: flex; }
+.modal-content {
+  background: #0a0a0a; border: 2px solid rgba(255,102,0,0.3);
+  border-radius: 20px; padding: 40px 30px; max-width: 500px; width: 100%;
+  position: relative;
+  box-shadow: 0 0 60px rgba(255,102,0,0.2);
+}
+.modal-close {
+  position: absolute; top: 16px; right: 16px;
+  background: none; color: #666; font-size: 24px;
+  width: 36px; height: 36px; display: flex; align-items: center; justify-content: center;
+  border-radius: 50%; transition: all 0.3s;
+}
+.modal-close:hover { color: #fff; background: rgba(255,255,255,0.1); }
+.modal-content h3 {
+  text-align: center; font-family: 'Impact', 'Montserrat', sans-serif;
+  font-size: 28px; font-weight: 500; text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.modal-content h3 .orange { color: var(--orange); }
+
+/* ── Animations ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-on-scroll {
+  opacity: 0; transform: translateY(30px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.animate-on-scroll.visible {
+  opacity: 1; transform: translateY(0);
+}
+
+/* ── Mobile Nav (hidden by default) ── */
+.mobile-nav {
+  display: none; position: fixed; inset: 0; z-index: 150;
+  background: rgba(0,0,0,0.95); backdrop-filter: blur(20px);
+  flex-direction: column; align-items: center; justify-content: center; gap: 24px;
+}
+.mobile-nav.active { display: flex; }
+.mobile-nav a {
+  font-size: 20px; font-weight: 700; color: #fff;
+  padding: 12px 30px; transition: color 0.3s;
+}
+.mobile-nav a:hover { color: var(--orange); }
+.mobile-nav-close {
+  position: absolute; top: 20px; right: 20px;
+  background: none; color: #fff; font-size: 32px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  .header { padding: 15px 30px; }
+  .header-nav a { padding: 6px 12px; font-size: 13px; }
+  .carousel-container { width: 85%; }
+}
+@media (max-width: 768px) {
+  .header { padding: 10px 16px; }
+  .header-inner { padding: 8px 16px; }
+  .header-logo .placeholder-logo { width: 45px; height: 45px; font-size: 12px; }
+  .header-nav { display: none; }
+  .header-cta { display: none; }
+  .hamburger { display: flex; }
+  .hero { padding: 100px 20px 60px; }
+  .vsl-wrapper { box-shadow: 0 0 40px var(--orange); }
+  .hero-cta-text { font-size: 25px; line-height: 30px; }
+  .bio-card { padding: 20px 15px; }
+  .bio-photo { width: 100%; }
+  .bio-card h2 { font-size: 28px; }
+  .carousel-container { width: 100%; }
+  .carousel-slide { width: 240px; }
+  .form-row { flex-direction: column; gap: 16px; }
+  .form-card { padding: 30px 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ HEADER ═══ -->
+<header class="header">
+  <div class="header-inner">
+    <a href="#" class="header-logo">
+      <div class="placeholder-logo">FBA</div>
+    </a>
+    <nav class="header-nav">
+      <a href="#gratuita">Clase gratuita</a>
+      <a href="#quien">Quiénes somos</a>
+      <a href="#testimonios">Testimonios</a>
+    </nav>
+    <a href="#form" class="header-cta">Regístrate</a>
+    <button class="hamburger" onclick="document.querySelector('.mobile-nav').classList.add('active')">&#9776;</button>
+  </div>
+</header>
+
+<!-- Mobile Nav -->
+<div class="mobile-nav">
+  <button class="mobile-nav-close" onclick="this.parentElement.classList.remove('active')">&#10005;</button>
+  <a href="#gratuita" onclick="this.parentElement.classList.remove('active')">Clase gratuita</a>
+  <a href="#quien" onclick="this.parentElement.classList.remove('active')">Quiénes somos</a>
+  <a href="#testimonios" onclick="this.parentElement.classList.remove('active')">Testimonios</a>
+  <a href="#form" class="cta-btn" style="font-size:16px;padding:14px 36px;" onclick="this.parentElement.classList.remove('active')">Regístrate aquí</a>
+</div>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero" id="gratuita">
+  <h1 class="animate-on-scroll">
+    <span class="orange">APRENDE A CREAR</span> UNA <span class="orange">TIENDA EN AMAZON</span><br>
+    CON LA QUE ESTÉS <span class="orange">VENDIENDO EN 72H</span> SIN <span class="orange">EXPERIENCIA</span>
+  </h1>
+  <p class="hero-sub animate-on-scroll">
+    Selecciono por ti <span class="orange">el producto</span> para que <span class="orange">NO pierdas tiempo</span> en buscarlo y <span class="orange">te monto la tienda</span>.
+  </p>
+
+  <!-- VSL Video -->
+  <div class="vsl-wrapper animate-on-scroll" id="vslWrapper">
+    <video id="vslVideo" playsinline preload="metadata">
+      <source src="Assets/vsl/vsl.mp4" type="video/mp4">
+    </video>
+    <div class="vsl-overlay"></div>
+    <div class="vsl-play-btn" id="vslPlayBtn" onclick="playVSL()">
+      <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="40" cy="40" r="38" fill="rgba(255,102,0,0.85)" stroke="white" stroke-width="3"/>
+        <polygon points="32,24 60,40 32,56" fill="white"/>
+      </svg>
+    </div>
+  </div>
+
+  <p class="hero-cta-text animate-on-scroll">
+    <span class="orange">REGÍSTRATE</span> y <span class="orange">ACCEDE</span> a la clase con regalo al final
+  </p>
+
+  <a href="#form" class="cta-btn animate-on-scroll">REGÍSTRATE AQUÍ</a>
+</section>
+
+<!-- Divider -->
+<div class="divider"></div>
+
+<!-- ═══ BIO ═══ -->
+<section class="bio" id="quien">
+  <div class="bio-card animate-on-scroll">
+    <h2>
+      ¿QUIÉN ES<br><span class="orange">EMI DE LA SIERRA</span>?
+    </h2>
+
+    <div class="bio-photo">
+      <img src="Assets/fotos%20emi/emi.jpg" alt="Emiliano de la Sierra">
+    </div>
+
+    <div class="bio-text">
+      <p>
+        <span class="orange">Emiliano de la Sierra</span> es un <span class="orange">emprendedor</span> uruguayo de 27 años que, partiendo de una <span class="orange">familia humilde</span> sin contactos ni capital inicial, <span class="orange">ha construido un imperio</span> en el comercio digital.
+      </p>
+      <br>
+      <p>
+        Hoy gestiona <span class="orange">65 tiendas en Amazon</span>, lidera un equipo de casi 30 personas, vive entre Dubai y Tailandia y genera +<span class="orange">300.000€</span> al mes de beneficio con <span class="orange">Amazon FBA</span> después de haber enseñado a <span class="orange">más de 5000 personas</span> y haberles cambiado por completo <span class="orange">la vida</span> en estos últimos 9 años.
+      </p>
+    </div>
+
+    <a href="#form" class="cta-btn" style="margin-top:28px;">REGÍSTRATE AQUÍ</a>
+  </div>
+</section>
+
+<!-- Divider -->
+<div class="divider"></div>
+
+<!-- ═══ TESTIMONIALS ═══ -->
+<section class="testimonials" id="testimonios">
+  <h3 class="animate-on-scroll">Algunos pocos casos de</h3>
+  <div class="subtitle animate-on-scroll">FBA ACADEMY</div>
+
+  <!-- Carousel Row 1 (left scroll) - testimonios 1-16 -->
+  <div class="carousel-container animate-on-scroll">
+    <div class="carousel-track">
+      <div class="carousel-slide"><img src="Assets/testimonios/1.jpg" alt="Caso 1" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/2.jpg" alt="Caso 2" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/3.jpg" alt="Caso 3" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/4.jpg" alt="Caso 4" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/5.jpg" alt="Caso 5" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/6.jpg" alt="Caso 6" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/7.jpg" alt="Caso 7" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/8.jpg" alt="Caso 8" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/9.jpg" alt="Caso 9" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/10.jpg" alt="Caso 10" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/11.jpg" alt="Caso 11" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/12.jpg" alt="Caso 12" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/13.jpg" alt="Caso 13" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/14.jpg" alt="Caso 14" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/15.jpg" alt="Caso 15" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/16.jpg" alt="Caso 16" loading="lazy"></div>
+      <!-- Duplicates for seamless loop -->
+      <div class="carousel-slide"><img src="Assets/testimonios/1.jpg" alt="Caso 1" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/2.jpg" alt="Caso 2" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/3.jpg" alt="Caso 3" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/4.jpg" alt="Caso 4" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/5.jpg" alt="Caso 5" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/6.jpg" alt="Caso 6" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/7.jpg" alt="Caso 7" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/8.jpg" alt="Caso 8" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/9.jpg" alt="Caso 9" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/10.jpg" alt="Caso 10" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/11.jpg" alt="Caso 11" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/12.jpg" alt="Caso 12" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/13.jpg" alt="Caso 13" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/14.jpg" alt="Caso 14" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/15.jpg" alt="Caso 15" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/16.jpg" alt="Caso 16" loading="lazy"></div>
+    </div>
+  </div>
+
+  <!-- Carousel Row 2 (right scroll) - testimonios 17-31 -->
+  <div class="carousel-container animate-on-scroll" style="margin-top:20px;">
+    <div class="carousel-track reverse">
+      <div class="carousel-slide"><img src="Assets/testimonios/17.jpg" alt="Caso 17" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/18.jpg" alt="Caso 18" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/19.jpg" alt="Caso 19" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/20.jpg" alt="Caso 20" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/21.jpg" alt="Caso 21" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/22.jpg" alt="Caso 22" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/23.jpg" alt="Caso 23" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/24.jpg" alt="Caso 24" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/25.jpg" alt="Caso 25" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/26.jpg" alt="Caso 26" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/27.jpg" alt="Caso 27" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/28.jpg" alt="Caso 28" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/29.jpg" alt="Caso 29" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/30.jpg" alt="Caso 30" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/31.jpg" alt="Caso 31" loading="lazy"></div>
+      <!-- Duplicates -->
+      <div class="carousel-slide"><img src="Assets/testimonios/17.jpg" alt="Caso 17" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/18.jpg" alt="Caso 18" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/19.jpg" alt="Caso 19" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/20.jpg" alt="Caso 20" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/21.jpg" alt="Caso 21" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/22.jpg" alt="Caso 22" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/23.jpg" alt="Caso 23" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/24.jpg" alt="Caso 24" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/25.jpg" alt="Caso 25" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/26.jpg" alt="Caso 26" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/27.jpg" alt="Caso 27" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/28.jpg" alt="Caso 28" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/29.jpg" alt="Caso 29" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/30.jpg" alt="Caso 30" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/31.jpg" alt="Caso 31" loading="lazy"></div>
+    </div>
+  </div>
+
+  <a href="#form" class="cta-btn animate-on-scroll" style="margin-top:30px;">REGÍSTRATE AQUÍ</a>
+</section>
+
+<!-- Divider -->
+<div class="divider"></div>
+
+<!-- ═══ FORM SECTION ═══ -->
+<section class="form-section" id="form">
+  <div class="form-card animate-on-scroll">
+    <h3><span class="orange">REGÍSTRATE</span> y <span class="orange">ACCEDE</span> a la clase con regalo al final</h3>
+
+    <form class="native-form" id="mainForm" onsubmit="return handleFormSubmit(event)">
+      <div class="form-group">
+        <label>Nombre</label>
+        <input type="text" name="name" placeholder="Nombre (sin apellidos)" required>
+      </div>
+      <div class="form-row">
+        <div class="form-group prefix">
+          <label>Prefijo</label>
+          <select name="prefix">
+            <option value="+34">+34</option>
+            <option value="+351">+351</option>
+            <option value="+33">+33</option>
+            <option value="+54">+54</option>
+            <option value="+591">+591</option>
+            <option value="+55">+55</option>
+            <option value="+56">+56</option>
+            <option value="+57">+57</option>
+            <option value="+506">+506</option>
+            <option value="+593">+593</option>
+            <option value="+503">+503</option>
+            <option value="+502">+502</option>
+            <option value="+52">+52</option>
+            <option value="+507">+507</option>
+            <option value="+595">+595</option>
+            <option value="+51">+51</option>
+            <option value="+598">+598</option>
+            <option value="+58">+58</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Teléfono</label>
+          <input type="tel" name="phone" placeholder="Tu teléfono" required pattern="[0-9()+\-\s]+">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" name="email" placeholder="Tu mejor correo" required>
+      </div>
+      <button type="submit" class="form-submit-btn">VER CLASE GRATIS</button>
+    </form>
+  </div>
+</section>
+
+<!-- ═══ POPUP MODAL ═══ -->
+<div class="modal-overlay" onclick="if(event.target===this)this.classList.remove('active')">
+  <div class="modal-content">
+    <button class="modal-close" onclick="this.closest('.modal-overlay').classList.remove('active')">&#10005;</button>
+    <h3><span class="orange">REGÍSTRATE</span> y <span class="orange">ACCEDE</span> a la clase con regalo al final</h3>
+
+    <form class="native-form" onsubmit="return handleFormSubmit(event)">
+      <div class="form-group">
+        <label>Nombre</label>
+        <input type="text" name="name" placeholder="Nombre (sin apellidos)" required>
+      </div>
+      <div class="form-row">
+        <div class="form-group prefix">
+          <label>Prefijo</label>
+          <select name="prefix">
+            <option value="+34">+34</option>
+            <option value="+351">+351</option>
+            <option value="+33">+33</option>
+            <option value="+54">+54</option>
+            <option value="+55">+55</option>
+            <option value="+56">+56</option>
+            <option value="+57">+57</option>
+            <option value="+52">+52</option>
+            <option value="+51">+51</option>
+            <option value="+598">+598</option>
+            <option value="+58">+58</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Teléfono</label>
+          <input type="tel" name="phone" placeholder="Tu teléfono" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" name="email" placeholder="Tu mejor correo" required>
+      </div>
+      <button type="submit" class="form-submit-btn">VER CLASE GRATIS</button>
+    </form>
+  </div>
+</div>
+
+<!-- ═══ JS ═══ -->
+<script>
+// Scroll animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+
+// VSL - Autoplay 1 out of 3 times
+const vslVideo = document.getElementById('vslVideo');
+const vslPlayBtn = document.getElementById('vslPlayBtn');
+const shouldAutoplay = Math.random() < (1/3);
+
+if (shouldAutoplay) {
+  vslVideo.muted = true;
+  vslVideo.play().then(() => {
+    vslPlayBtn.classList.add('hidden');
+    // Unmute after a short delay (browsers require muted autoplay)
+    setTimeout(() => {
+      vslVideo.muted = false;
+    }, 500);
+  }).catch(() => {
+    // Autoplay blocked, show play button
+    vslPlayBtn.classList.remove('hidden');
+  });
+}
+
+function playVSL() {
+  vslVideo.play();
+  vslPlayBtn.classList.add('hidden');
+}
+
+// Pause/play on click on video area
+vslVideo.addEventListener('click', () => {
+  if (vslVideo.paused) {
+    vslVideo.play();
+    vslPlayBtn.classList.add('hidden');
+  } else {
+    vslVideo.pause();
+    vslPlayBtn.classList.remove('hidden');
+  }
+});
+
+vslVideo.addEventListener('ended', () => {
+  vslPlayBtn.classList.remove('hidden');
+});
+
+// Form submit handler
+function handleFormSubmit(e) {
+  e.preventDefault();
+  const form = e.target;
+  const btn = form.querySelector('.form-submit-btn');
+  btn.textContent = 'Enviando...';
+  btn.disabled = true;
+  setTimeout(() => {
+    btn.textContent = '¡REGISTRADO!';
+    btn.style.background = '#22c55e';
+    btn.style.boxShadow = '0 0 40px rgba(34,197,94,0.4)';
+    form.reset();
+    setTimeout(() => {
+      btn.textContent = 'VER CLASE GRATIS';
+      btn.style.background = '';
+      btn.style.boxShadow = '';
+      btn.disabled = false;
+      const modal = btn.closest('.modal-overlay');
+      if (modal) modal.classList.remove('active');
+    }, 2000);
+  }, 1200);
+  return false;
+}
+
+// Header background on scroll
+const header = document.querySelector('.header-inner');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 50) {
+    header.style.background = 'rgba(0,0,0,0.95)';
+    header.style.boxShadow = '0 0 20px rgba(255,102,0,0.15)';
+  } else {
+    header.style.background = 'rgba(0,0,0,0.85)';
+    header.style.boxShadow = 'none';
+  }
+});
+</script>
+
+</body>
+</html>
