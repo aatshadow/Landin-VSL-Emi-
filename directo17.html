@@ -911,17 +911,16 @@ const videoProgress = document.getElementById('videoProgress');
 const videoWrap = document.getElementById('videoWrap');
 
 heroVideo.controls = false;
-heroVideo.muted = true;
-heroVideo.play().catch(() => {});
-
-// Click to unmute on first click, then toggle pause/play
-let unmuted = false;
-videoWrap.addEventListener('click', () => {
-  if (!unmuted) {
+heroVideo.muted = false;
+heroVideo.play().catch(() => {
+  // Browser blocked unmuted autoplay, retry muted then unmute fast
+  heroVideo.muted = true;
+  heroVideo.play().then(() => {
     heroVideo.muted = false;
-    unmuted = true;
-    return;
-  }
+  }).catch(() => {});
+});
+
+videoWrap.addEventListener('click', () => {
   if (heroVideo.paused) { heroVideo.play(); }
   else { heroVideo.pause(); }
 });
