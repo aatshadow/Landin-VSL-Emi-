@@ -387,6 +387,17 @@ button { cursor: pointer; border: none; font-family: inherit; }
 .animate-on-scroll.visible {
   opacity: 1; transform: translateY(0);
 }
+/* Fallback: si JS no carga, mostrar todo igualmente */
+@media (scripting: none) {
+  .animate-on-scroll { opacity: 1; transform: none; }
+}
+/* Fallback timeout via animation */
+@keyframes forceShow {
+  to { opacity: 1; transform: none; }
+}
+.animate-on-scroll {
+  animation: forceShow 0s 2s forwards;
+}
 
 /* ── Mobile Nav (hidden by default) ── */
 .mobile-nav {
@@ -708,7 +719,10 @@ button { cursor: pointer; border: none; font-family: inherit; }
 const SUPABASE_URL = 'https://jxesxtptbudlqnquppgt.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp4ZXN4dHB0YnVkbHFucXVwcGd0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMzMzc1MzAsImV4cCI6MjA4ODkxMzUzMH0.PI30XeQJEKbtn00GSyBO3enLaXtFSpxXpj7zMf96dG8';
 
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+let supabaseClient = null;
+try {
+  supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+} catch(e) { console.warn('Supabase SDK not loaded:', e); }
 
 // Scroll animations
 const observer = new IntersectionObserver((entries) => {
@@ -774,7 +788,8 @@ async function handleFormSubmit(e) {
   };
 
   try {
-    const { error } = await supabase.from('leads').insert([leadData]);
+    if (!supabaseClient) throw new Error('Supabase not available');
+    const { error } = await supabaseClient.from('leads').insert([leadData]);
 
     if (error) throw error;
 
