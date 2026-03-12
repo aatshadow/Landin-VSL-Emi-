@@ -697,8 +697,19 @@ button { cursor: pointer; border: none; font-family: inherit; }
   </div>
 </div>
 
+<!-- ═══ Supabase SDK ═══ -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+
 <!-- ═══ JS ═══ -->
 <script>
+// ── Supabase Config ──
+// IMPORTANTE: Reemplaza estos valores con los de tu proyecto Supabase
+// Los encuentras en: Supabase Dashboard > Settings > API
+const SUPABASE_URL = 'https://jxesxtptbudlqnquppgt.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp4ZXN4dHB0YnVkbHFucXVwcGd0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMzMzc1MzAsImV4cCI6MjA4ODkxMzUzMH0.PI30XeQJEKbtn00GSyBO3enLaXtFSpxXpj7zMf96dG8';
+
+const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
 // Scroll animations
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
@@ -719,12 +730,8 @@ if (shouldAutoplay) {
   vslVideo.muted = true;
   vslVideo.play().then(() => {
     vslPlayBtn.classList.add('hidden');
-    // Unmute after a short delay (browsers require muted autoplay)
-    setTimeout(() => {
-      vslVideo.muted = false;
-    }, 500);
+    setTimeout(() => { vslVideo.muted = false; }, 500);
   }).catch(() => {
-    // Autoplay blocked, show play button
     vslPlayBtn.classList.remove('hidden');
   });
 }
@@ -734,7 +741,6 @@ function playVSL() {
   vslPlayBtn.classList.add('hidden');
 }
 
-// Pause/play on click on video area
 vslVideo.addEventListener('click', () => {
   if (vslVideo.paused) {
     vslVideo.play();
@@ -749,18 +755,34 @@ vslVideo.addEventListener('ended', () => {
   vslPlayBtn.classList.remove('hidden');
 });
 
-// Form submit handler
-function handleFormSubmit(e) {
+// ── Form submit → Supabase ──
+async function handleFormSubmit(e) {
   e.preventDefault();
   const form = e.target;
   const btn = form.querySelector('.form-submit-btn');
+  const formData = new FormData(form);
+
   btn.textContent = 'Enviando...';
   btn.disabled = true;
-  setTimeout(() => {
+
+  const leadData = {
+    name: formData.get('name').trim(),
+    phone_prefix: formData.get('prefix'),
+    phone: formData.get('phone').trim(),
+    email: formData.get('email').trim().toLowerCase(),
+    source: 'landing-vsl'
+  };
+
+  try {
+    const { error } = await supabase.from('leads').insert([leadData]);
+
+    if (error) throw error;
+
     btn.textContent = '¡REGISTRADO!';
     btn.style.background = '#22c55e';
     btn.style.boxShadow = '0 0 40px rgba(34,197,94,0.4)';
     form.reset();
+
     setTimeout(() => {
       btn.textContent = 'VER CLASE GRATIS';
       btn.style.background = '';
@@ -769,7 +791,18 @@ function handleFormSubmit(e) {
       const modal = btn.closest('.modal-overlay');
       if (modal) modal.classList.remove('active');
     }, 2000);
-  }, 1200);
+
+  } catch (err) {
+    console.error('Error guardando lead:', err);
+    btn.textContent = 'ERROR - INTÉNTALO DE NUEVO';
+    btn.style.background = '#ef4444';
+    btn.disabled = false;
+    setTimeout(() => {
+      btn.textContent = 'VER CLASE GRATIS';
+      btn.style.background = '';
+    }, 3000);
+  }
+
   return false;
 }
 
