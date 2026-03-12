@@ -266,9 +266,9 @@ button { cursor: pointer; border: none; font-family: inherit; }
 }
 .carousel-track {
   display: flex; gap: 20px;
-  animation: scroll-left 60s linear infinite;
+  animation: scroll-left 25s linear infinite;
 }
-.carousel-track.reverse { animation: scroll-right 60s linear infinite; }
+.carousel-track.reverse { animation: scroll-right 25s linear infinite; }
 @keyframes scroll-left {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
@@ -277,7 +277,7 @@ button { cursor: pointer; border: none; font-family: inherit; }
   0% { transform: translateX(-50%); }
   100% { transform: translateX(0); }
 }
-.carousel-track:hover { animation-play-state: paused; }
+.carousel-track:hover { animation-duration: 50s; }
 .carousel-slide {
   flex-shrink: 0; width: 280px; border-radius: 10px; overflow: hidden;
 }
