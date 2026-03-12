@@ -372,6 +372,54 @@ body::after {
   line-height: 1.7;
 }
 
+/* ── Testimonials Carousel ── */
+.testimonials-section {
+  padding: 80px 0; text-align: center;
+  overflow: hidden;
+}
+.testimonials-section .section-title { margin-bottom: 8px; }
+.testimonials-section .section-sub { margin-bottom: 32px; }
+.carousel-container {
+  width: 100%; position: relative; overflow: hidden;
+  margin-bottom: 16px;
+}
+.carousel-container::before,
+.carousel-container::after {
+  content: ''; position: absolute; top: 0; bottom: 0; width: 120px; z-index: 2;
+  pointer-events: none;
+}
+.carousel-container::before {
+  left: 0;
+  background: linear-gradient(to right, #0A0A0A 0%, transparent 100%);
+}
+.carousel-container::after {
+  right: 0;
+  background: linear-gradient(to left, #0A0A0A 0%, transparent 100%);
+}
+.carousel-track {
+  display: flex; gap: 16px;
+  animation: scroll-left 30s linear infinite;
+}
+.carousel-track.reverse { animation: scroll-right 30s linear infinite; }
+@keyframes scroll-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@keyframes scroll-right {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+.carousel-track:hover { animation-duration: 60s; }
+.carousel-slide {
+  flex-shrink: 0; width: 260px; border-radius: 12px; overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.05);
+  transition: border-color 0.3s;
+}
+.carousel-slide:hover { border-color: rgba(255,107,0,0.2); }
+.carousel-slide img {
+  width: 100%; height: auto; display: block;
+}
+
 /* ── Second CTA ── */
 .cta-bottom {
   text-align: center; padding: 60px 20px 40px;
@@ -672,6 +720,90 @@ body::after {
     <div class="bio-text">
       <h3>Emiliano De la Sierra</h3>
       <p>Fundador de <strong class="orange">FBA Academy Pro</strong> desde 2019. Ha formado a mas de <strong>5.000 personas</strong> en Amazon FBA. Gestiona <strong>65 tiendas simultaneamente</strong> con un equipo de mentores expertos y mas de <strong class="orange">16 millones de dolares</strong> en inventario real. Ahora documenta todo en directo durante 17 dias.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- Testimonials -->
+<section class="testimonials-section">
+  <h2 class="section-title anim">Resultados <span class="orange">reales</span></h2>
+  <p class="section-sub anim">Algunos de los +5.000 alumnos que ya han pasado por FBA Academy</p>
+
+  <!-- Row 1 -->
+  <div class="carousel-container anim">
+    <div class="carousel-track">
+      <div class="carousel-slide"><img src="Assets/testimonios/1.jpg" alt="Caso 1" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/2.jpg" alt="Caso 2" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/3.jpg" alt="Caso 3" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/4.jpg" alt="Caso 4" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/5.jpg" alt="Caso 5" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/6.jpg" alt="Caso 6" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/7.jpg" alt="Caso 7" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/8.jpg" alt="Caso 8" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/9.jpg" alt="Caso 9" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/10.jpg" alt="Caso 10" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/11.jpg" alt="Caso 11" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/12.jpg" alt="Caso 12" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/13.jpg" alt="Caso 13" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/14.jpg" alt="Caso 14" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/15.jpg" alt="Caso 15" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/16.jpg" alt="Caso 16" loading="lazy"></div>
+      <!-- Duplicates for seamless loop -->
+      <div class="carousel-slide"><img src="Assets/testimonios/1.jpg" alt="Caso 1" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/2.jpg" alt="Caso 2" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/3.jpg" alt="Caso 3" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/4.jpg" alt="Caso 4" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/5.jpg" alt="Caso 5" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/6.jpg" alt="Caso 6" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/7.jpg" alt="Caso 7" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/8.jpg" alt="Caso 8" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/9.jpg" alt="Caso 9" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/10.jpg" alt="Caso 10" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/11.jpg" alt="Caso 11" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/12.jpg" alt="Caso 12" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/13.jpg" alt="Caso 13" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/14.jpg" alt="Caso 14" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/15.jpg" alt="Caso 15" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/16.jpg" alt="Caso 16" loading="lazy"></div>
+    </div>
+  </div>
+
+  <!-- Row 2 (reverse) -->
+  <div class="carousel-container anim">
+    <div class="carousel-track reverse">
+      <div class="carousel-slide"><img src="Assets/testimonios/17.jpg" alt="Caso 17" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/18.jpg" alt="Caso 18" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/19.jpg" alt="Caso 19" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/20.jpg" alt="Caso 20" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/21.jpg" alt="Caso 21" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/22.jpg" alt="Caso 22" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/23.jpg" alt="Caso 23" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/24.jpg" alt="Caso 24" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/25.jpg" alt="Caso 25" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/26.jpg" alt="Caso 26" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/27.jpg" alt="Caso 27" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/28.jpg" alt="Caso 28" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/29.jpg" alt="Caso 29" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/30.jpg" alt="Caso 30" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/31.jpg" alt="Caso 31" loading="lazy"></div>
+      <!-- Duplicates -->
+      <div class="carousel-slide"><img src="Assets/testimonios/17.jpg" alt="Caso 17" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/18.jpg" alt="Caso 18" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/19.jpg" alt="Caso 19" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/20.jpg" alt="Caso 20" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/21.jpg" alt="Caso 21" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/22.jpg" alt="Caso 22" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/23.jpg" alt="Caso 23" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/24.jpg" alt="Caso 24" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/25.jpg" alt="Caso 25" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/26.jpg" alt="Caso 26" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/27.jpg" alt="Caso 27" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/28.jpg" alt="Caso 28" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/29.jpg" alt="Caso 29" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/30.jpg" alt="Caso 30" loading="lazy"></div>
+      <div class="carousel-slide"><img src="Assets/testimonios/31.jpg" alt="Caso 31" loading="lazy"></div>
     </div>
   </div>
 </section>
